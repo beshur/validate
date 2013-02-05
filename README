@@ -1,0 +1,8 @@
+### Validate_ini()
+Just call validate_ini() when window ready. It is safe to recall it when new fields are added.
+
+```
+$(function() {
+	validate_ini();
+})
+```
