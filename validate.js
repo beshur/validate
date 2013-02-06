@@ -1,9 +1,8 @@
-/* validation
+// validation
 // Alex Buznik (http://buznik.net/)
 // 2012-2013
 //
 // just call validate_ini() when window ready. It is safe to recall it when new fields are added.
-*/
 
 function validate_ini() {
 
