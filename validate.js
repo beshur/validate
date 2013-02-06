@@ -38,7 +38,7 @@ function validate_ini() {
 
 			if (dv == "full" ) {
 				if (c == '' || c == ' ' || c == "" ) {
-					addError(curObj, error, dv, "Это поле должно быть заполнено");
+					addError(curObj, error, dv, "This field should not be empty");
 				} else {
 					removeError(curObj, error, dv);
 				}
@@ -46,9 +46,9 @@ function validate_ini() {
 
 			if (dv == "length" ) {
 				if (c == '' || c == ' ' || c == "" ) {
-					addError(curObj, error, dv, "Это поле должно быть заполнено");
+					addError(curObj, error, dv, "This field should not be empty");
 				} else if (c.length < 6 ) {
-					addError(curObj, error, dv, "Не меньше 6 симловов");
+					addError(curObj, error, dv, "At least 6 symbols");
 				} else {
 					removeError(curObj, error, dv);
 				}
@@ -56,9 +56,9 @@ function validate_ini() {
 
 			if (dv == "password" ) {
 				if (c == '' || c == ' ' || c == "" ) {
-					addError(curObj, error, dv, "Это поле должно быть заполнено");
+					addError(curObj, error, dv, "This field should not be empty");
 				} else if (c != curObj.parents("li").prev("li").find("input[data-pass-one]").val()) {
-					addError(curObj, error, dv, "Пароли должны совпадать");
+					addError(curObj, error, dv, "The passwords must match");
 				} else {
 					removeError(curObj, error, dv);
 				}
@@ -67,9 +67,9 @@ function validate_ini() {
 			if (dv == "text" ) {
 				var reg = new RegExp('[0-9]+');
 				if (c == '' || c == ' ' || c == "" ) {
-					addError(curObj, error, dv, "Это поле должно быть заполнено");
+					addError(curObj, error, dv, "This field should not be empty");
 				} else if ( reg.test(c) ) {
-					addError(curObj, error, dv, "Это поле должно содержать только буквы");
+					addError(curObj, error, dv, "This field can contain letters only");
 				} else {
 					removeError(curObj, error, dv);
 				}
@@ -78,9 +78,9 @@ function validate_ini() {
 			if (dv == "phone" ) {
 				var reg = new RegExp('[0-9]+');
 				if (c == '' || c == ' ' || c == "" || c.length < 7) {
-					addError(curObj, error, dv, "Это поле должно быть заполнено");
+					addError(curObj, error, dv, "This field should not be empty");
 				} else if (!reg.test(c)) {
-					addError(curObj, error, dv, "Поле должно содержать только цифры и +");
+					addError(curObj, error, dv, "This field can contain numbers only and +");
 				} else {
 					removeError(curObj, error, dv);
 				}
@@ -90,9 +90,9 @@ function validate_ini() {
 				var reg = new RegExp('[0-9\.]+');
 				
 				if (c == '' || c == ' ' || c == "" ) {
-					addError(curObj, error, dv, "Это поле должно быть заполнено");
+					addError(curObj, error, dv, "This field should not be empty");
 				} else if (!reg.test(c)) {
-					addError(curObj, error, dv, "Это поле должно быть заполнено");
+					addError(curObj, error, dv, "This field is incorrect");
 				} else {
 					removeError(curObj, error, dv);
 				}
@@ -100,7 +100,7 @@ function validate_ini() {
 
 			if (dv == "select" ) {
 				if ( !curObj.siblings(".dropdown").find("li[data-value='" + c + "']").length ) {
-					addError(curObj, error, dv, "Неверное значение поля");
+					addError(curObj, error, dv, "This field is incorrect");
 				} else {
 					removeError(curObj, error, dv);
 				}
@@ -108,7 +108,7 @@ function validate_ini() {
 
 			if (dv == "birth" ) {
 				if (c == '' || c == ' ' ) {
-					addError(curObj, error, dv, "Это поле должно быть заполнено");
+					addError(curObj, error, dv, "This field should not be empty");
 				} else {
 					removeError(curObj, error, dv);
 		
@@ -117,7 +117,7 @@ function validate_ini() {
 					var year = new Date;
 					year = year.getFullYear();
 					if (parseInt(check[0]) > 31 || parseInt(check[1]) > 12 || parseInt(check[2]) > year || parseInt(check[2]) < 1910 ) {
-						addError(curObj, error, dv, "Дата рождения введена неверно");
+						addError(curObj, error, dv, "Date of birth is incorrect");
 					} else {
 						removeError(curObj, error, dv);
 					}
@@ -129,7 +129,7 @@ function validate_ini() {
 			    var reg = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 			    
 			    if ( reg.test(c) != true) {
-					addError(curObj, error, dv, "Адрес e-mail введен неверно");
+					addError(curObj, error, dv, "E-mail address is incorrect");
 				} else {
 					removeError(curObj, error, dv);
 				}
