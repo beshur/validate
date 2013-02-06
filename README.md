@@ -25,5 +25,7 @@ The form should look like:
 </div>
 ```
 
-In this case the scripts will work out of box, though you may need to change the 'addError' and 'removeError' functions to match your taste.
+### Demo
+http://jsfiddle.net/beshur/D8tWs/
 
+In this case the scripts will work out of box, though you may need to change the 'addError' and 'removeError' functions to match your taste.
