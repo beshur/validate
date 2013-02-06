@@ -1,5 +1,5 @@
 ### Validate_ini()
-Just call validate_ini() when window ready. It is safe to recall it when new fields are added.
+Just call validate_ini() when window is ready. It is safe to recall it when new fields are added.
 
 ```
 $(function() {
