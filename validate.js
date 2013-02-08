@@ -7,9 +7,6 @@
 function validate_ini() {
 
 	$(".form_wrap form [data-validate]").unbind('blur').bind('blur', function(e) {
-		//var l = curObj.parents("form").find("[data-validate]");
-		//l = curObj.parents("form").find("[data-validate]").length - curObj.parents("form").find("[data-validate].opt").length;
-
 		var curObj = $(this);
 		var error = {};
 		var c = curObj.val();
@@ -136,14 +133,15 @@ function validate_ini() {
 			}
 		}
 
-		//console.log(curObj.is(curObj.parents("form").find("[data-validate]").last()), curObj, curObj.parents("form").find("[data-validate]").length);
 
 		if (curObj.is(curObj.parents("form").find("[data-validate]").last()) && !curObj.parents("form").find(".error").length) {
-			curObj.parents("form").addClass("is_valid").submit();
+			curObj.parents("form").addClass("is_valid")
+			if (curObj.parents("form").hasClass("submit_after")) curObj.parents("form").submit();
 		} else {
 			curObj.parents("form").removeClass("is_valid");
+			if (curObj.parents("form").hasClass("submit_after")) curObj.parents("form").removeClass("submit_after")
 		}
 
-		//console.log(error);
+
 	});
 }
