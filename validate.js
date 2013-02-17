@@ -12,26 +12,27 @@ function validate_ini() {
 		var c = curObj.val();
 		var dv = curObj.attr("data-validate");
 
+		function addError(curObj, error, dv, err_string) {
+			if (curObj.hasClass("error")) {
+				curObj.parents(".i").prev("label").removeClass("valid").find(".err_string").remove();
+			}
+			curObj
+				.addClass("error")
+				.parents(".i").prev("label").removeClass("valid").addClass("invalid")
+				.find("em").before('<span class="err_string">(' + err_string + ')</span>')
+			error[dv] = err_string;
+		}
+		function removeError(curObj, error, dv) {
+			curObj.removeClass("error")
+			if (!curObj.parents(".i").find(".error").length) {
+				curObj.parents(".i").prev("label").addClass("valid").removeClass("invalid").find(".err_string").remove();
+			}
+			delete error.dv;
+		}
+
+		removeError(curObj);
 		if (!$(this).hasClass("opt")) {
 
-
-			function addError(curObj, error, dv, err_string) {
-				if (curObj.hasClass("error")) {
-					curObj.parents(".i").prev("label").removeClass("valid").find(".err_string").remove();
-				}
-				curObj
-					.addClass("error")
-					.parents(".i").prev("label").removeClass("valid").addClass("invalid")
-					.find("em").before('<span class="err_string">(' + err_string + ')</span>')
-				error[dv] = err_string;
-			}
-			function removeError(curObj, error, dv) {
-				curObj.removeClass("error")
-				if (!curObj.parents(".i").find(".error").length) {
-					curObj.parents(".i").prev("label").addClass("valid").removeClass("invalid").find(".err_string").remove();
-				}
-				delete error.dv;
-			}
 
 			if (dv == "full" ) {
 				if (c == '' || c == ' ' || c == "" ) {
