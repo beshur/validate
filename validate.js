@@ -16,6 +16,7 @@ function validate_ini() {
 			if (curObj.hasClass("error")) {
 				curObj.parents(".i").prev("label").removeClass("valid").find(".err_string").remove();
 			}
+<<<<<<< HEAD
 			curObj
 				.addClass("error")
 				.parents(".i").prev("label").removeClass("valid").addClass("invalid")
@@ -26,6 +27,15 @@ function validate_ini() {
 			curObj.removeClass("error")
 			if (!curObj.parents(".i").find(".error").length) {
 				curObj.parents(".i").prev("label").addClass("valid").removeClass("invalid").find(".err_string").remove();
+=======
+			function removeError(curObj, error, dv) {
+				curObj.removeClass("error")
+				console.log(typeof curObj.parents(".i").find(".error").length)
+				if (!curObj.parents(".i").find(".error").length) {
+					curObj.parents(".i").prev("label").addClass("valid").removeClass("invalid").find(".err_string").remove();
+				}
+				delete error.dv;
+>>>>>>> fix
 			}
 			delete error.dv;
 		}
