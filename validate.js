@@ -23,67 +23,67 @@ var validize = {
 		if (!curObj.parents(".i").find(".error").length) {
 			curObj.parents(".i").prev("label").addClass("valid").removeClass("invalid").find(".err_string").remove();
 		}
-		delete error.dv;
+		if (error) delete error.dv;
 	},
 
 	validate_ini: function(obj) {
-
+		
 		$(obj).unbind('blur').bind('blur', function(e) {
 			var curObj = $(this);
 			var error = {};
 			var c = curObj.val();
 			var dv = curObj.attr("data-validate");
-			removeError(curObj);
+			validize.removeError(curObj);
 			if (!$(this).hasClass("opt")) {
 
 
 				if (dv == "full" ) {
 					if (c == '' || c == ' ' || c == "" ) {
-						addError(curObj, error, dv, "This field should not be empty");
+						validize.addError(curObj, error, dv, "This field should not be empty");
 					} else {
-						removeError(curObj, error, dv);
+						validize.removeError(curObj, error, dv);
 					}
 				}
 
 				if (dv == "length" ) {
 					if (c == '' || c == ' ' || c == "" ) {
-						addError(curObj, error, dv, "This field should not be empty");
+						validize.addError(curObj, error, dv, "This field should not be empty");
 					} else if (c.length < 6 ) {
-						addError(curObj, error, dv, "At least 6 symbols");
+						validize.addError(curObj, error, dv, "At least 6 symbols");
 					} else {
-						removeError(curObj, error, dv);
+						validize.removeError(curObj, error, dv);
 					}
 				}
 
 				if (dv == "password" ) {
 					if (c == '' || c == ' ' || c == "" ) {
-						addError(curObj, error, dv, "This field should not be empty");
+						validize.addError(curObj, error, dv, "This field should not be empty");
 					} else if (c != curObj.parents("li").prev("li").find("input[data-pass-one]").val()) {
-						addError(curObj, error, dv, "The passwords must match");
+						validize.addError(curObj, error, dv, "The passwords must match");
 					} else {
-						removeError(curObj, error, dv);
+						validize.removeError(curObj, error, dv);
 					}
 				}
 
 				if (dv == "text" ) {
 					var reg = new RegExp('[0-9]+');
 					if (c == '' || c == ' ' || c == "" ) {
-						addError(curObj, error, dv, "This field should not be empty");
+						validize.addError(curObj, error, dv, "This field should not be empty");
 					} else if ( reg.test(c) ) {
-						addError(curObj, error, dv, "This field can contain letters only");
+						validize.addError(curObj, error, dv, "This field can contain letters only");
 					} else {
-						removeError(curObj, error, dv);
+						validize.removeError(curObj, error, dv);
 					}
 				}
 
 				if (dv == "phone" ) {
 					var reg = new RegExp('[0-9]+');
 					if (c == '' || c == ' ' || c == "" || c.length < 7) {
-						addError(curObj, error, dv, "This field should not be empty");
+						validize.addError(curObj, error, dv, "This field should not be empty");
 					} else if (!reg.test(c)) {
-						addError(curObj, error, dv, "This field can contain numbers only and +");
+						validize.addError(curObj, error, dv, "This field can contain numbers only and +");
 					} else {
-						removeError(curObj, error, dv);
+						validize.removeError(curObj, error, dv);
 					}
 				}
 
@@ -91,36 +91,36 @@ var validize = {
 					var reg = new RegExp('[0-9\.]+');
 					
 					if (c == '' || c == ' ' || c == "" ) {
-						addError(curObj, error, dv, "This field should not be empty");
+						validize.addError(curObj, error, dv, "This field should not be empty");
 					} else if (!reg.test(c)) {
-						addError(curObj, error, dv, "This field is incorrect");
+						validize.addError(curObj, error, dv, "This field is incorrect");
 					} else {
-						removeError(curObj, error, dv);
+						validize.removeError(curObj, error, dv);
 					}
 				}
 
 				if (dv == "select" ) {
 					if ( !curObj.siblings(".dropdown").find("li[data-value='" + c + "']").length ) {
-						addError(curObj, error, dv, "This field is incorrect");
+						validize.addError(curObj, error, dv, "This field is incorrect");
 					} else {
-						removeError(curObj, error, dv);
+						validize.removeError(curObj, error, dv);
 					}
 				}
 
 				if (dv == "birth" ) {
 					if (c == '' || c == ' ' ) {
-						addError(curObj, error, dv, "This field should not be empty");
+						validize.addError(curObj, error, dv, "This field should not be empty");
 					} else {
-						removeError(curObj, error, dv);
+						validize.removeError(curObj, error, dv);
 			
 						// parse years
 						var check = c.split("-");
 						var year = new Date;
 						year = year.getFullYear();
 						if (parseInt(check[0]) > 31 || parseInt(check[1]) > 12 || parseInt(check[2]) > year || parseInt(check[2]) < 1910 ) {
-							addError(curObj, error, dv, "Date of birth is incorrect");
+							validize.addError(curObj, error, dv, "Date of birth is incorrect");
 						} else {
-							removeError(curObj, error, dv);
+							validize.removeError(curObj, error, dv);
 						}
 					}
 				}
@@ -130,9 +130,9 @@ var validize = {
 				    var reg = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 				    
 				    if ( reg.test(c) != true) {
-						addError(curObj, error, dv, "E-mail address is incorrect");
+						validize.addError(curObj, error, dv, "E-mail address is incorrect");
 					} else {
-						removeError(curObj, error, dv);
+						validize.removeError(curObj, error, dv);
 					}
 				}
 			}
