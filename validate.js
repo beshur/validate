@@ -5,12 +5,43 @@
 // just call validize.validate_ini() when window ready. It is safe to recall it when new fields are added.
 // fields to be validated need appropriate 'data-validate' attribute.
 
+if (typeof page_var == "undefined") page_var = {}
+page_var.lang = 0 // id of the language, corresponds with the second var name in err_string;
+
+
 var validize = {
 
+
+	err_string: {
+		'full': {
+			0: "The field must not be empty"
+		},
+		'length': {
+			0: "At least 6 symbols"
+		},
+		'password': {
+			0: "The passwords must match"
+		},
+		'text': {
+			0: 'Letters only'
+		},
+		'phone': {
+			0: "Numbers only and +"
+		},
+		'email': {
+			0: "E-mail address is incorrect"
+		},
+		'general': {
+			0: "This field is incorrect"
+		}
+
+	},
 	addError: function(curObj, error, dv, err_string) {
 		if (curObj.hasClass("error")) {
 			curObj.parents(".i").prev("label").removeClass("valid").find(".err_string").remove();
 		}
+
+		err_string = validize.err_string[err_string][page_var.lang];
 		curObj
 			.addClass("error")
 			.parents(".i").prev("label").removeClass("valid").addClass("invalid")
@@ -36,10 +67,9 @@ var validize = {
 			validize.removeError(curObj);
 			if (!$(this).hasClass("opt")) {
 
-
 				if (dv == "full" ) {
 					if (c == '' || c == ' ' || c == "" ) {
-						validize.addError(curObj, error, dv, "This field should not be empty");
+						validize.addError(curObj, error, dv, "full");
 					} else {
 						validize.removeError(curObj, error, dv);
 					}
@@ -47,9 +77,9 @@ var validize = {
 
 				if (dv == "length" ) {
 					if (c == '' || c == ' ' || c == "" ) {
-						validize.addError(curObj, error, dv, "This field should not be empty");
+						validize.addError(curObj, error, dv, "full");
 					} else if (c.length < 6 ) {
-						validize.addError(curObj, error, dv, "At least 6 symbols");
+						validize.addError(curObj, error, dv, "length");
 					} else {
 						validize.removeError(curObj, error, dv);
 					}
@@ -57,9 +87,9 @@ var validize = {
 
 				if (dv == "password" ) {
 					if (c == '' || c == ' ' || c == "" ) {
-						validize.addError(curObj, error, dv, "This field should not be empty");
+						validize.addError(curObj, error, dv, "full");
 					} else if (c != curObj.parents("li").prev("li").find("input[data-pass-one]").val()) {
-						validize.addError(curObj, error, dv, "The passwords must match");
+						validize.addError(curObj, error, dv, "password");
 					} else {
 						validize.removeError(curObj, error, dv);
 					}
@@ -68,9 +98,9 @@ var validize = {
 				if (dv == "text" ) {
 					var reg = new RegExp('[0-9]+');
 					if (c == '' || c == ' ' || c == "" ) {
-						validize.addError(curObj, error, dv, "This field should not be empty");
+						validize.addError(curObj, error, dv, "full");
 					} else if ( reg.test(c) ) {
-						validize.addError(curObj, error, dv, "This field can contain letters only");
+						validize.addError(curObj, error, dv, "text");
 					} else {
 						validize.removeError(curObj, error, dv);
 					}
@@ -79,9 +109,9 @@ var validize = {
 				if (dv == "phone" ) {
 					var reg = new RegExp('[0-9]+');
 					if (c == '' || c == ' ' || c == "" || c.length < 7) {
-						validize.addError(curObj, error, dv, "This field should not be empty");
+						validize.addError(curObj, error, dv, "full");
 					} else if (!reg.test(c)) {
-						validize.addError(curObj, error, dv, "This field can contain numbers only and +");
+						validize.addError(curObj, error, dv, "phone");
 					} else {
 						validize.removeError(curObj, error, dv);
 					}
@@ -91,9 +121,9 @@ var validize = {
 					var reg = new RegExp('[0-9\.]+');
 					
 					if (c == '' || c == ' ' || c == "" ) {
-						validize.addError(curObj, error, dv, "This field should not be empty");
+						validize.addError(curObj, error, dv, "full");
 					} else if (!reg.test(c)) {
-						validize.addError(curObj, error, dv, "This field is incorrect");
+						validize.addError(curObj, error, dv, "general");
 					} else {
 						validize.removeError(curObj, error, dv);
 					}
@@ -101,27 +131,9 @@ var validize = {
 
 				if (dv == "select" ) {
 					if ( !curObj.siblings(".dropdown").find("li[data-value='" + c + "']").length ) {
-						validize.addError(curObj, error, dv, "This field is incorrect");
+						validize.addError(curObj, error, dv, "general");
 					} else {
 						validize.removeError(curObj, error, dv);
-					}
-				}
-
-				if (dv == "birth" ) {
-					if (c == '' || c == ' ' ) {
-						validize.addError(curObj, error, dv, "This field should not be empty");
-					} else {
-						validize.removeError(curObj, error, dv);
-			
-						// parse years
-						var check = c.split("-");
-						var year = new Date;
-						year = year.getFullYear();
-						if (parseInt(check[0]) > 31 || parseInt(check[1]) > 12 || parseInt(check[2]) > year || parseInt(check[2]) < 1910 ) {
-							validize.addError(curObj, error, dv, "Date of birth is incorrect");
-						} else {
-							validize.removeError(curObj, error, dv);
-						}
 					}
 				}
 
@@ -130,7 +142,7 @@ var validize = {
 				    var reg = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 				    
 				    if ( reg.test(c) != true) {
-						validize.addError(curObj, error, dv, "E-mail address is incorrect");
+						validize.addError(curObj, error, dv, "email");
 					} else {
 						validize.removeError(curObj, error, dv);
 					}
