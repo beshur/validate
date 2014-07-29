@@ -138,7 +138,7 @@ var validize = function(obj) {
 
 			if (dv == "date" ) {
 				var reg = new RegExp('[0-9\.]+');
-				
+
 				if (c == '' || c == ' ' || c == "" ) {
 					_this.addError(curObj, error, dv, "full");
 				} else if (!reg.test(c)) {
@@ -159,7 +159,7 @@ var validize = function(obj) {
 			if (dv == "email" ) {
 
 			    var reg = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-			    
+
 			    if ( reg.test(c) != true) {
 					_this.addError(curObj, error, dv, "email");
 				} else {
@@ -174,7 +174,7 @@ var validize = function(obj) {
 			if (curObj.parents("form").hasClass("submit_after")) curObj.parents("form").submit();
 		} else {
 			curObj.parents("form").removeClass("is_valid");
-			if (curObj.parents("form").hasClass("submit_after")) curObj.parents("form").removeClass("submit_after")
+			// if (curObj.parents("form").hasClass("submit_after")) curObj.parents("form").removeClass("submit_after")
 		}
 
 	}
