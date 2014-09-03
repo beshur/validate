@@ -1,3 +1,10 @@
+### About
+Yet another jQuery form validation library.
+
+Current status: some stuff is deprecated, a massive update is coming soon.
+
+
+
 ### Validate_ini()
 Just call validize.validate_ini("[data-validate]") when window is ready. It is safe to recall it when new fields are added.
 
