@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+	<title>validate/validize test</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<style type="text/css">
+		form {
+			padding: 10px;
+		}
+		form .fields li {
+			margin: 0 0 15px;
+		}
+		label em { color: red; }
+		.err_string {
+			margin: 0 4px;
+			font-size: 12px;
+			color: red;
+
+		} 
+
+		.i {
+			padding: 5px 0;
+		} 
+		input {
+			border: 1px solid #666;
+		}
+		input.error {
+			border-color: red;
+		}
+
+		small {
+			font-size: 12px;
+		}
+		body {
+			font-family: Arial, Helvetica, sans-serif;
+		}
+	</style>
+</head>
+
+<body>
+	<div class="form_wrap">
+		<form>
+			<ul class="fields">
+				<li>
+					<label>Basic (not empty)<em>*</em></label>
+					<div class="i">
+						<input type="text" data-validate="full" placeholder="anything" />
+					</div>
+				</li>
+				<li>
+					<label>Test email<em>*</em></label>
+					<div class="i">
+						<input type="text" data-validate="email" placeholder="test@test.com" />
+					</div>
+				</li>
+				<li>
+				<hr />
+					<label>Password (Test for length)<em>*</em></label>
+					<div class="i">
+						<input type="password" data-validate="length" data-pass-one="true" placeholder="datpass" />
+					</div>
+				</li>
+				<li>
+					<label>Repeat password<em>*</em></label>
+					<div class="i">
+						<input type="password" data-validate="password" placeholder="dispass" />
+					</div>
+				</li>
+				<li>
+					<label>Text only<em>*</em></label>
+					<div class="i">
+						<input type="text" data-validate="text" placeholder="fdsf2 342" />
+					</div>
+				</li>
+				<li>
+					<label>Phone<em>*</em></label>
+					<div class="i">
+						<input type="text" data-validate="phone" placeholder="fdsf2 342" />
+					</div>
+				</li>
+				<li>
+					<label>Date test<em>*</em></label>
+					<div class="i">
+						<input type="text" data-validate="date" placeholder="12-12-12 or 12.12.12" />
+					</div>
+					<small>It is meant to be used with something like jQuery Datepicker and make the date format match</small>
+				</li>
+				<li>
+					<label>Birth date test<em>*</em></label>
+					<div class="i">
+						<input type="text" data-validate="birth" placeholder="31-12-1900" />
+					</div>
+					<small>It is meant to be used with something like jQuery Datepicker and make the date format match</small>
+				</li>
+			</ul>
+			
+			<button>Submit</button>
+		</form>
+	</div>
+	<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+	<script type="text/javascript" src="validate.js"></script>
+	<script type="text/javascript">
+		$(function() {
+			var ext = {}
+			ext.addError = function() {
+				console.log('error');
+			}
+			
+			$("[data-validate]").validize(ext);
+		});
+	</script>
+</body>
+</html>
